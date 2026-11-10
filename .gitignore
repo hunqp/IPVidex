@@ -1,0 +1,66 @@
+# ============================================================================
+#  .gitignore — IPVidex
+#
+#  TRACKED (source & config — NOT listed in this file):
+#    main.py, worker.py, core/, gui/, infrastructure/, services/, tools/, tests/
+#    main.ui, assets/, vendor/, packaging/ (IPVidex.spec, Build.ps1, Installer.iss)
+#    requirements*.txt, pyproject.toml, *.md, .gitignore
+#
+#  Note: git only treats "#" as a comment at the start of a line, so comments
+#  must never share a line with a pattern.
+# ============================================================================
+
+# Python bytecode cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment (recreate per machine: python -m venv venv)
+venv/
+.venv/
+env/
+
+# Linter / formatter / test caches
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.pyre/
+
+# PyInstaller build output (rebuild with packaging/Build.ps1)
+build/
+dist/
+
+# Runtime data produced by the app: local config/history, reports, logs
+appData/
+reports/
+logs/
+*.log
+
+# TLS certificates generated at runtime (dev: ./tls, frozen: %LOCALAPPDATA%/IPVidex/tls)
+tls/
+
+# Secrets and local-only files: NEVER commit
+# DUT: test device notes (IP / account / password)
+DUT
+*.pem
+*.crt
+*.cer
+*.key
+
+# AI assistant instructions (kept locally, not part of the product)
+CLAUDE.md
+SKILL.md
+.claude/
+
+# OS / editor
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+.DS_Store
+
+# vendor/ (MediaMTX, ~55 MB) is tracked so a fresh clone builds and runs as-is;
+# VLC comes from the system install at build time. GitHub warns above 50 MB
+# (hard limit 100 MB) and every binary update adds ~55 MB to history: consider
+# Git LFS, or uncomment the next line and restore vendor/ on the build machine.
+# vendor/
