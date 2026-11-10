@@ -1,0 +1,362 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui version="4.0">
+  <class>MainWindow</class>
+  <widget class="QMainWindow" name="MainWindow">
+    <property name="geometry">
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1120</width>
+        <height>760</height>
+      </rect>
+    </property>
+    <property name="windowTitle">
+      <string>IPVidex</string>
+    </property>
+    <property name="styleSheet">
+      <string>
+QWidget { font-family:Tahoma;font-size:9pt;font-weight:400;color:#202833; }
+QMainWindow,QDialog,QWidget#centralwidget { background:#F5F6F8; }
+QLabel { background:transparent; }
+QLabel#brandTitle { font-size:14pt;font-weight:800;color:#12325C; }
+QLabel#brandSubtitle { font-size:8pt;color:#6A7686; }
+QPushButton#headerIcon { background:transparent;border:0;padding:0;min-height:0; }
+QPushButton#headerIcon:hover { background:#DDEAF7; }
+QToolTip { background:#FFFFFF;color:#202833;border:1px solid #C9CFD7;padding:3px 5px; }
+QLineEdit,QComboBox,QSpinBox,QDoubleSpinBox { background:#FFFFFF;border:1px solid #C9CFD7;border-radius:4px;padding:2px 6px;min-height:17px;selection-background-color:#DCEAF8;selection-color:#202833; }
+QLineEdit:hover,QComboBox:hover,QSpinBox:hover,QDoubleSpinBox:hover { border-color:#AEB7C2; }
+QLineEdit:focus,QComboBox:focus,QSpinBox:focus,QDoubleSpinBox:focus { border-color:#2474C7; }
+QLineEdit:disabled,QComboBox:disabled { background:#F2F3F5;color:#9AA3AE; }
+QComboBox::drop-down { border:0;width:18px; }
+QPushButton { background:#FFFFFF;border:1px solid #C9CFD7;border-radius:4px;padding:2px 10px;min-height:19px; }
+QPushButton:hover { background:#EEF4FB;border-color:#9DBEE0; }
+QPushButton:pressed { background:#DCEAF8;border-color:#2474C7; }
+QPushButton:disabled { color:#A3ABB5;background:#F2F3F5;border-color:#DDE1E6; }
+QGroupBox { border:1px solid #D5DAE1;border-radius:4px;margin-top:8px;padding-top:8px; }
+QTabWidget::pane { background:#FFFFFF;border:1px solid #D5DAE1;top:-1px; }
+QTabWidget::tab-bar { left:8px; }
+QWidget#viewerTab { background:#FFFFFF; }
+QTabBar::tab { background:#ECEEF1;color:#4A5563;border:1px solid #D5DAE1;border-bottom:0;border-top-left-radius:4px;border-top-right-radius:4px;padding:5px 14px;min-height:16px;margin-right:2px; }
+QTabBar::tab:selected { background:#FFFFFF;color:#202833;border-top:2px solid #2474C7;padding-top:4px; }
+QTabBar::tab:hover:!selected { background:#F5F7FA;color:#202833; }
+QSplitter::handle { background:#FFFFFF; }
+QTableWidget,QTextEdit,QPlainTextEdit { background:#FFFFFF;border:1px solid #D5DAE1;border-radius:4px;selection-background-color:#DCEAF8;selection-color:#14385E;outline:0; }
+QCheckBox::indicator { width:15px;height:15px;margin-right:4px; }
+QCheckBox::indicator:unchecked { border:1px solid #9AA4B0;border-radius:3px;background:#FFFFFF; }
+QCheckBox::indicator:unchecked:hover { border-color:#2474C7; }
+QCheckBox::indicator:checked { image:url("D:/IPVidex/assets/icons/checked.svg"); }
+QCheckBox::indicator:indeterminate { image:url("D:/IPVidex/assets/icons/partial.svg"); }
+QCheckBox::indicator:disabled { border-color:#D5DAE1;background:#F2F3F5; }
+QTableWidget { gridline-color:#E6E9ED;alternate-background-color:#FAFBFC; }
+QTableWidget::item { padding:2px 6px;font-size:9pt; }
+QTableWidget::item:selected { background:#DCEAF8;color:#14385E; }
+QHeaderView { background:#F3F5F7; }
+QHeaderView::section { background:#F3F5F7;color:#202833;border:0;border-right:1px solid #E1E5EA;border-bottom:1px solid #D5DAE1;padding:4px 8px;font-weight:600; }
+QWidget#discoveryTab { background:#FFFFFF; }
+QTabBar#discoveryNav::tab { background:transparent;border:0;border-bottom:2px solid transparent;border-radius:0;margin:0 2px 0 0;padding:5px 10px;color:#4A5563; }
+QTabBar#discoveryNav::tab:hover:!selected { background:#F0F3F6; }
+QTabBar#discoveryNav::tab:selected { color:#202833;font-weight:600;border-bottom:2px solid #4A5563; }
+QTabBar#discoveryNav::tab:disabled { color:#A3ABB5; }
+QPushButton#discoveryIcon { padding:0;min-width:28px;max-width:28px;min-height:28px;max-height:28px; }
+QPushButton#discoveryIcon:checked { background:#FCEFF0;border-color:#E3A4A9; }
+QLabel#discoveryConnection { color:#4A5563; }
+QFrame#discoveryPanel { background:#FFFFFF;border:1px solid #D5DAE1;border-radius:3px; }
+QLabel#discoveryStatus { color:#4A5563;border:0;border-top:1px solid #E6E9ED;padding-top:3px; }
+QLabel#discoveryFieldLabel { color:#4A5563; }
+QFrame#discoveryPanel QTableWidget,QFrame#discoveryPanel QPlainTextEdit { border:0;border-radius:0;background:#FFFFFF; }
+QFrame#discoveryPanel QTableWidget::item:selected { background:#DCEAF8;color:#14385E; }
+QLabel#discoveryVideo { background:#1E2228;color:#8A939D;border-radius:2px; }
+QLabel#discoveryChip { background:#F3F5F7;color:#66717C;border:1px solid #D5DAE1;border-radius:3px;padding:1px 5px;font-size:8pt;font-weight:400;font-style:normal; }
+QPushButton#rtspCommandTag { background:#F4F8FD;color:#2467A8;border:1px solid #7BA9D8;border-radius:8px;padding:0 10px;min-height:26px;max-height:26px;font-weight:400; }
+QLabel#rtspCommandProgress { color:#66717C;font-size:8pt; }
+QGroupBox#rtspCommandPanel { margin-top:0;padding-top:0; }
+QToolButton#rtspRequestOptions { background:#F3F5F7;color:#344454;border:1px solid #CCD5DF;border-radius:4px;padding:4px 8px; }
+QToolButton#rtspRequestOptions:hover { background:#EAF0F6; }
+QToolButton#rtspRequestOptions:checked { background:#EAF0F6;color:#344454;border-color:#B5C5D6; }
+QPushButton#rtspCommandTag:hover { background:#EDF5FD;border-color:#347FC5; }
+QPushButton#rtspCommandTag:pressed { background:#DCECFB;border-color:#2467A8; }
+QPushButton#rtspCommandTag:disabled { color:#91A7BC;border-color:#C6D6E5;background:#F7F9FB; }
+QLabel#discoveryUri { color:#66717C; }
+QPushButton#discoveryCopy { padding:0;min-height:0; }
+QLabel#discoverySection { color:#202833;font-weight:600;padding:4px 0 2px 0;border:0;border-bottom:1px solid #E1E5EA; }
+QTableCornerButton::section { background:#F3F5F7;border:0;border-bottom:1px solid #D5DAE1; }
+QScrollBar:vertical { background:transparent;width:10px;margin:2px; }
+QScrollBar:horizontal { background:transparent;height:10px;margin:2px; }
+QScrollBar::handle:vertical { background:#C5CBD3;border-radius:3px;min-height:28px; }
+QScrollBar::handle:horizontal { background:#C5CBD3;border-radius:3px;min-width:28px; }
+QScrollBar::handle:hover { background:#A7AFBA; }
+QScrollBar::add-line,QScrollBar::sub-line { width:0;height:0; }
+QScrollBar::add-page,QScrollBar::sub-page { background:transparent; }
+QPushButton#playButton,QPushButton#discoveryPrimary { background:#FFFFFF;color:#0E63D8;border:1px solid #0E63D8;border-radius:4px;padding:3px 14px;font-weight:600; }
+QPushButton#playButton:hover,QPushButton#discoveryPrimary:hover { background:#F0F6FE;color:#0A4FB0;border-color:#0A4FB0; }
+QPushButton#playButton:pressed,QPushButton#discoveryPrimary:pressed { background:#E2EDFB; }
+QPushButton#playButton:disabled,QPushButton#discoveryPrimary:disabled { background:#FFFFFF;color:#AEC6EC;border-color:#D4DFEE; }
+</string>
+    </property>
+    <property name="font">
+      <font>
+        <family>Tahoma</family>
+        <pointsize>9</pointsize>
+      </font>
+    </property>
+    <widget class="QWidget" name="centralwidget">
+      <layout class="QVBoxLayout" name="mainLayout">
+        <item>
+          <layout class="QHBoxLayout" name="headerLayout">
+            <item>
+              <widget class="QPushButton" name="settingsButton">
+                <property name="text">
+                  <string>Settings</string>
+                </property>
+              </widget>
+            </item>
+          </layout>
+        </item>
+        <item>
+          <widget class="QTabWidget" name="tabs">
+            <widget class="QWidget" name="discoveryTab">
+              <attribute name="title">
+                <string>Discovery</string>
+              </attribute>
+              <layout class="QVBoxLayout" name="discoveryTabLayout" />
+            </widget>
+            <widget class="QWidget" name="viewerTab">
+              <attribute name="title">
+                <string>RTSP(S)</string>
+              </attribute>
+              <layout class="QVBoxLayout" name="viewerTabLayout" stretch="0,0,0,0,1">
+                <item>
+                  <layout class="QGridLayout" name="viewerForm">
+                    <item row="0" column="0">
+                      <widget class="QLabel" name="mainUrlEditLabel">
+                        <property name="text">
+                          <string>Main stream RTSP URL</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item row="0" column="1">
+                      <widget class="QLineEdit" name="mainUrlEdit">
+                        <property name="placeholderText">
+                          <string>rtsp://&lt;IP_CAMERA&gt;:554/path or rtsps://camera:322/path</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item row="1" column="0">
+                      <widget class="QLabel" name="subUrlEditLabel">
+                        <property name="text">
+                          <string>Minor stream RTSP URL</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item row="1" column="1">
+                      <widget class="QLineEdit" name="subUrlEdit">
+                        <property name="placeholderText">
+                          <string>rtsp://&lt;IP_CAMERA&gt;:554/path or rtsps://camera:322/path</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item row="2" column="0">
+                      <widget class="QLabel" name="streamComboLabel">
+                        <property name="text">
+                          <string>Stream to open</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item row="2" column="1">
+                      <widget class="QComboBox" name="streamCombo">
+                        <item>
+                          <property name="text">
+                            <string>Main</string>
+                          </property>
+                        </item>
+                        <item>
+                          <property name="text">
+                            <string>Minor</string>
+                          </property>
+                        </item>
+                      </widget>
+                    </item>
+                    <item row="3" column="0">
+                      <widget class="QLabel" name="rtspUsernameEditLabel">
+                        <property name="text">
+                          <string>RTSP username (optional)</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item row="3" column="1">
+                      <widget class="QLineEdit" name="rtspUsernameEdit" />
+                    </item>
+                    <item row="4" column="0">
+                      <widget class="QLabel" name="rtspPasswordEditLabel">
+                        <property name="text">
+                          <string>RTSP password</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item row="4" column="1">
+                      <widget class="QLineEdit" name="rtspPasswordEdit">
+                        <property name="echoMode">
+                          <enum>QLineEdit::Password</enum>
+                        </property>
+                      </widget>
+                    </item>
+                    <item row="5" column="1">
+                      <widget class="QCheckBox" name="rtspAutoTrustCheck">
+                        <property name="text">
+                          <string>Automatically fetch and trust camera certificate (RTSPS)</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item row="6" column="0">
+                      <widget class="QLabel" name="rtspCaEditLabel">
+                        <property name="text">
+                          <string>RTSPS certificate</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item row="6" column="1">
+                      <layout class="QHBoxLayout" name="rtspCaRow">
+                        <item>
+                          <widget class="QLineEdit" name="rtspCaEdit">
+                            <property name="placeholderText">
+                              <string>Only for rtsps:// — certificate (.pem) exported from this camera</string>
+                            </property>
+                          </widget>
+                        </item>
+                        <item>
+                          <widget class="QPushButton" name="rtspCaButton">
+                            <property name="text">
+                              <string>Browse…</string>
+                            </property>
+                          </widget>
+                        </item>
+                      </layout>
+                    </item>
+                  </layout>
+                </item>
+                <item>
+                  <layout class="QHBoxLayout" name="viewerActions">
+                    <item>
+                      <widget class="QPushButton" name="playButton">
+                        <property name="text">
+                          <string>Connect</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item>
+                      <widget class="QPushButton" name="stopStreamButton">
+                        <property name="text">
+                          <string>Disconnect</string>
+                        </property>
+                      </widget>
+                    </item>
+                  </layout>
+                </item>
+                <item>
+                  <widget class="QLabel" name="streamStatusLabel">
+                    <property name="text">
+                      <string>Disconnected</string>
+                    </property>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="QLabel" name="metadataLabel">
+                    <property name="text">
+                      <string />
+                    </property>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="QLabel" name="videoLabel">
+                    <property name="text">
+                      <string />
+                    </property>
+                    <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="styleSheet">
+                      <string>background:#202020;color:white;</string>
+                    </property>
+                    <property name="minimumSize">
+                      <size>
+                        <width>320</width>
+                        <height>160</height>
+                      </size>
+                    </property>
+                  </widget>
+                </item>
+              </layout>
+            </widget>
+          </widget>
+        </item>
+      </layout>
+      <widget class="QWidget" name="advancedContent">
+        <layout class="QGridLayout" name="advancedGrid">
+          <item row="0" column="0">
+            <widget class="QLabel" name="timeoutSpinLabel">
+              <property name="text">
+                <string>Connection timeout (s)</string>
+              </property>
+            </widget>
+          </item>
+          <item row="0" column="1">
+            <widget class="QDoubleSpinBox" name="timeoutSpin">
+              <property name="minimum">
+                <double>0.2</double>
+              </property>
+              <property name="maximum">
+                <double>10</double>
+              </property>
+              <property name="value">
+                <double>2</double>
+              </property>
+            </widget>
+          </item>
+          <item row="1" column="0">
+            <widget class="QLabel" name="onvifPortSpinLabel">
+              <property name="text">
+                <string>ONVIF port</string>
+              </property>
+            </widget>
+          </item>
+          <item row="1" column="1">
+            <widget class="QSpinBox" name="onvifPortSpin">
+              <property name="minimum">
+                <number>1</number>
+              </property>
+              <property name="maximum">
+                <number>65535</number>
+              </property>
+              <property name="value">
+                <number>80</number>
+              </property>
+            </widget>
+          </item>
+          <item row="2" column="0">
+            <widget class="QLabel" name="onvifPathEditLabel">
+              <property name="text">
+                <string>ONVIF device path</string>
+              </property>
+            </widget>
+          </item>
+          <item row="2" column="1">
+            <widget class="QLineEdit" name="onvifPathEdit">
+              <property name="placeholderText">
+                <string>Documented path only; e.g. /onvif/device_service</string>
+              </property>
+            </widget>
+          </item>
+          <item row="3" column="1">
+            <widget class="QCheckBox" name="onvifHttpsCheck">
+              <property name="text">
+                <string>ONVIF HTTPS</string>
+              </property>
+            </widget>
+          </item>
+        </layout>
+      </widget>
+    </widget>
+  </widget>
+  <resources />
+  <connections />
+</ui>

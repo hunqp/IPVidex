@@ -1,0 +1,7 @@
+-r requirements.txt
+pyinstaller>=6.22,<7
+ruff>=0.17,<1
+pytest>=8,<10
+# Only for the tools/Check*.py integration scripts (synthetic test streams).
+av>=19,<20
+numpy>=2,<3
