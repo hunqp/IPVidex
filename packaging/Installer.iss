@@ -1,13 +1,10 @@
-; Inno Setup script for IPVidex (Windows x64 installer).
+﻿; Inno Setup script for IPVidex (Windows x64 installer).
 ;
 ; Requires Inno Setup 6: https://jrsoftware.org/isdl.php
 ;
 ; Build steps:
-;   1) Produce the portable folder payload first:
-;        .\packaging\Build.ps1 -Mode onedir
-;   2) Compile this installer:
-;        & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" packaging\Installer.iss
-;   3) Result: dist\IPVidex-Setup.exe
+;   Run .\build.cmd -Mode installer from the project folder.
+;   Result: dist\IPVidex-Setup.exe
 
 #define AppName "IPVidex"
 #define AppExe "IPVidex.exe"
@@ -49,3 +46,4 @@ Name: "desktopicon"; Description: "Create a desktop shortcut"; GroupDescription:
 
 [Run]
 Filename: "{app}\{#AppExe}"; Description: "Launch IPVidex now"; Flags: nowait postinstall skipifsilent
+

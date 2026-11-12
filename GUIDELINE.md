@@ -1,62 +1,93 @@
-# Build Guide
+﻿# Hướng dẫn build IPVidex
 
-How to build the Windows release of IPVidex.
+## Build đơn giản: một file EXE chạy trực tiếp
 
-## Prerequisites
+Mở **PowerShell** tại thư mục dự án và chạy:
 
-- Windows 10 / 11, 64-bit
-- Python 3.10+ (64-bit)
-- VLC 3.x, 64-bit, in `C:\Program Files\VideoLAN\VLC`
-- Inno Setup 6 (installer only)
+```powershell
+.\build.cmd
+```
+
+Script tự đóng gói ứng dụng. Khi hoàn tất, mở file này hoặc gửi cho người dùng:
+
+```text
+dist\IPVidex.exe
+```
+
+Người dùng không cần cài Python hoặc VLC: chúng đã được đóng gói sẵn.
+Không cần kích hoạt venv hoặc cài Inno Setup cho kiểu build này.
+
+Nếu PowerShell đang ở thư mục khác, chạy `cd D:\IPVidex` trước.
+Nếu dùng **Git Bash**, lệnh tương đương là `./build.cmd`.
+
+## Chuẩn bị lần đầu trên máy build
+
+Cài các phần mềm sau một lần:
+
+- Python 3.10 trở lên, bản 64-bit.
+- VLC 3.x, bản 64-bit, tại `C:\Program Files\VideoLAN\VLC`.
+- Chỉ khi cần bộ cài Setup: cài Inno Setup 6 vào thư mục mặc định hoặc thêm `ISCC.exe` vào PATH.
+
+Sau đó chạy từng dòng trong PowerShell tại thư mục dự án:
 
 ```powershell
 python -m venv venv
 .\venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 ```
 
-## Before a release
+Nếu đã có venv và các thư viện, bỏ qua bước tạo venv. Cài lại requirements khi chúng thay đổi.
 
-Set the same version in `core\Version.py`, `AppVersion` in `packaging\Installer.iss`, the README badge and `CHANGELOG.md`. Then make sure the checks pass:
+## Các kiểu build khác (tùy chọn)
+
+| Muốn tạo | Lệnh PowerShell | Kết quả |
+|---|---|---|
+| Bộ cài đặt (cần Inno Setup 6) | `.\build.cmd -Mode installer` | `dist\IPVidex-Setup.exe` |
+| Một EXE chạy trực tiếp | `.\build.cmd -Mode onefile` | `dist\IPVidex.exe` |
+| Thư mục portable | `.\build.cmd -Mode onedir` | `dist\IPVidex\` |
+
+Với portable, gửi nguyên thư mục, bao gồm `_internal`.
+Các bản build dùng chung `dist`; chỉ gửi đúng kết quả của lần build vừa thành công.
+
+Nếu VLC được cài ở nơi khác:
+
+```powershell
+.\build.cmd -Mode installer -VlcDirectory "D:\Apps\VLC"
+```
+
+`build.cmd` gọi `packaging\Build.ps1` với chính sách chạy script chỉ áp dụng cho tiến trình build.
+Cách gọi trực tiếp `Build.ps1` vẫn hoạt động; mặc định của script đó vẫn là `onefile`.
+
+## Kiểm tra trước khi phát hành
+
+Đồng bộ phiên bản trong `core\Version.py`, `AppVersion` trong `packaging\Installer.iss`, badge README và `CHANGELOG.md`.
+Chạy từng dòng:
 
 ```powershell
 .\venv\Scripts\python.exe -m pytest
 .\venv\Scripts\python.exe -m ruff check .
 ```
 
-## Build
-
-| Artifact | Command | Output |
-|---|---|---|
-| Single executable | `.\packaging\Build.ps1` | `dist\IPVidex.exe` |
-| Portable folder | `.\packaging\Build.ps1 -Mode onedir` | `dist\IPVidex\` |
-| Installer | build the portable folder, then `& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" packaging\Installer.iss` | `dist\IPVidex-Setup.exe` |
-
-Every build also writes `README.txt` and `LICENSE.txt` next to the executable. Both modes share `dist\`, so build the one you ship last.
-
-Zip the portable folder as a whole, because `IPVidex.exe` needs its `_internal` folder:
+Sau khi build bộ cài hoặc portable, kiểm tra runtime (với onefile, dùng đường dẫn dist\IPVidex.exe):
 
 ```powershell
-Compress-Archive -Path dist\IPVidex -DestinationPath dist\IPVidex-portable.zip -Force
+dist\IPVidex\IPVidex.exe --check-runtime | Out-String
+Start-Process dist\IPVidex\IPVidex.exe -ArgumentList --self-test -Wait -PassThru
 ```
 
-## Verify
+Runtime cần báo `"available": true`; self-test cần có ExitCode bằng 0.
+Thử bộ cài trên máy sạch: tìm và đăng nhập camera, phát video trực tiếp, khởi động RTMP server.
+Đóng ứng dụng và kiểm tra không còn tiến trình `IPVidex.exe` hoặc `mediamtx.exe`.
 
-```powershell
-dist\IPVidex\IPVidex.exe --check-runtime | Out-String                       # "available": true
-Start-Process dist\IPVidex\IPVidex.exe -ArgumentList --self-test -Wait      # exits with 0
-```
+## Khi gặp lỗi
 
-Then, on a clean machine: discover and log in to a camera, play live video, and start the RTMP server. Close the app and confirm that no `IPVidex.exe` or `mediamtx.exe` process is left running.
+- Thiếu Inno Setup: cài Inno Setup 6 rồi chạy lại `build.cmd`.
+- Thiếu venv: thực hiện phần chuẩn bị lần đầu ở trên.
+- Thiếu VLC: cài VLC 3.x 64-bit hoặc chỉ định `-VlcDirectory`.
+- PyInstaller thất bại: kiểm tra lỗi trong terminal và cài lại `requirements-dev.txt` nếu thiếu thư viện. Bộ cài chỉ được tạo khi bước build thành công.
 
-## Code signing
+## Ký số
 
-Builds are unsigned, so SmartScreen warns on first run (*More info → Run anyway*). To sign a release, sign every `.exe`, `.dll` and `.pyd` in `dist\IPVidex\` with `signtool`, build the installer, then sign `IPVidex-Setup.exe`.
+Build chưa được ký số có thể bị Windows SmartScreen cảnh báo hoặc Smart App Control chặn.
+Để ký bản phát hành: build `onedir`, dùng `signtool` ký các file `.exe`, `.dll`, `.pyd` trong `dist\IPVidex`, biên dịch `packaging\Installer.iss` bằng Inno Setup, rồi ký `dist\IPVidex-Setup.exe`.
+Không chạy lại `build.cmd` sau khi ký payload vì lệnh này sẽ build lại ứng dụng.
 
-## Troubleshooting
-
-| Problem | Fix |
-|---|---|
-| `Set IPVIDEX_VLC_DIR ...` | Install 64-bit VLC 3.x, or pass `-VlcDirectory "D:\Path\To\VLC"`. |
-| `running scripts is disabled` | `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` |
-| `PyInstaller build failed` | Reinstall `requirements-dev.txt`, then delete `dist` and `build` and rebuild. |
-| Missing DLLs in the portable copy | Ship the whole `IPVidex` folder, not just the `.exe`. |
